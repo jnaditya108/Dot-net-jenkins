@@ -38,23 +38,28 @@ pipeline {
 
         stage('Deploy to Azure') {
             steps {
-                withCredentials([azureServicePrincipal(credentialsId: 'Azure-service-principal')]) {
-                    script {
-                        bat '''
-                            az login --service-principal ^
-                                --username "%AZURE_CLIENT_ID%" ^
-                                --password "%AZURE_CLIENT_SECRET%" ^
-                                --tenant "%AZURE_TENANT_ID%"
+                withCredentials([azureServicePrincipal(
+                    credentialsId: 'Azure-service-principal',
+                    subscriptionIdVariable: 'AZURE_SUBSCRIPTION_ID',
+                    clientIdVariable: 'AZURE_CLIENT_ID',
+                    clientSecretVariable: 'AZURE_CLIENT_SECRET',
+                    tenantIdVariable: 'AZURE_TENANT_ID'
+                )]) {
+                    bat '''
+                    az login --service-principal ^
+                        --username "%AZURE_CLIENT_ID%" ^
+                        --password "%AZURE_CLIENT_SECRET%" ^
+                        --tenant "%AZURE_TENANT_ID%"
 
-                            az account set --subscription "%AZURE_SUBSCRIPTION_ID%"
-                            
-                            az webapp up ^
-                              --name myDotnetApp ^
-                              --resource-group myResourceGroup ^
-                              --runtime "DOTNET:6" ^
-                              --src-path published ^
-                              --location "East US"
-                    """
+                    az account set --subscription "%AZURE_SUBSCRIPTION_ID%"
+
+                    az webapp up ^
+                        --name myDotnetApp ^
+                        --resource-group myResourceGroup ^
+                        --runtime "DOTNET:6" ^
+                        --src-path published ^
+                        --location "East US"
+                    '''
                 }
             }
         }
