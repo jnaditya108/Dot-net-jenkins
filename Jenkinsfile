@@ -38,7 +38,7 @@ pipeline {
 
         stage('Deploy to Azure') {
             steps {
-                withCredentials([azureServicePrincipal(credentialsId: 'azure-service-principal')]) {
+                withCredentials([azureServicePrincipal(credentialsId: 'Azure-service-principal')]) {
                     script {
                         bat '''
                             az login --service-principal ^
