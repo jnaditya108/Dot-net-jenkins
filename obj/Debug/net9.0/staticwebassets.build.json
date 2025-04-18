@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "d1mKv/gSwCTpRrlcEEdgwbp4Hv5gTDbtGoDWMlH6RRs=",
+  "Source": "DotNetAzureApp",
+  "BasePath": "_content/DotNetAzureApp",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
